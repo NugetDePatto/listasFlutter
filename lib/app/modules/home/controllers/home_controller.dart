@@ -38,4 +38,8 @@ class HomeController extends GetxController {
   void eliminarLista() {
     listas.raiz.value = null;
   }
+
+  void eliminarNumero() {
+    listas.eliminar(int.parse(numero.text));
+  }
 }

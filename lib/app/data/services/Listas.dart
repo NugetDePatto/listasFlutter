@@ -3,7 +3,6 @@ import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import '../models/Nodo.dart';
 
 class Listas {
-  // Nodo? raiz;
   Rx<Nodo?> raiz = Rx<Nodo?>(null);
 
   //agregar al inicio
@@ -23,6 +22,21 @@ class Listas {
       }
       auxiliar.siguiente = nuevo;
     }
+  }
+
+  eliminar(int numero) {
+    raiz.value = eliminarRecursivo(raiz.value, numero);
+  }
+
+  Nodo? eliminarRecursivo(Nodo? aux, int numero) {
+    if (aux != null) {
+      if (aux.numero == numero) {
+        return aux.siguiente;
+      } else {
+        aux.siguiente = eliminarRecursivo(aux.siguiente, numero);
+      }
+    }
+    return aux;
   }
 
   void imprimir() {
@@ -46,32 +60,36 @@ class Listas {
   }
 
   void partirVoltear() {
-    Nodo? raizMitad = raiz.value;
-    Nodo? auxMitad = raiz.value;
-    Nodo? auxFinal = raiz.value;
+    try {
+      Nodo? raizMitad = raiz.value;
+      Nodo? auxMitad = raiz.value;
+      Nodo? auxFinal = raiz.value;
 
-    int length = tamanio();
+      int length = tamanio();
 
-    int i = length % 2 == 1 ? 0 : -1;
+      int i = length % 2 == 1 ? 0 : -1;
 
-    while (auxFinal!.siguiente != null) {
-      i++;
-      if (i < (length / 2) - 1) auxMitad = auxMitad!.siguiente;
-      if (i < (length / 2)) raiz.value = raiz.value!.siguiente;
+      while (auxFinal!.siguiente != null) {
+        i++;
+        if (i < (length / 2) - 1) auxMitad = auxMitad!.siguiente;
+        if (i < (length / 2)) raiz.value = raiz.value!.siguiente;
 
-      auxFinal = auxFinal.siguiente;
-    }
-
-    if (auxFinal != auxMitad) {
-      auxMitad!.siguiente = null;
-      auxFinal.siguiente = raizMitad;
-
-      if (length % 2 == 1) {
-        Nodo? aux = raiz.value;
-        raiz.value = raiz.value!.siguiente;
-        aux!.siguiente = null;
-        auxMitad.siguiente = aux;
+        auxFinal = auxFinal.siguiente;
       }
+
+      if (auxFinal != auxMitad) {
+        auxMitad!.siguiente = null;
+        auxFinal.siguiente = raizMitad;
+
+        if (length % 2 == 1) {
+          Nodo? aux = raiz.value;
+          raiz.value = raiz.value!.siguiente;
+          aux!.siguiente = null;
+          auxMitad.siguiente = aux;
+        }
+      }
+    } catch (e) {
+      print(e);
     }
   }
 }

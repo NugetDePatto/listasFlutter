@@ -86,6 +86,12 @@ class HomeView extends GetView<HomeController> {
                   },
                   child: const Text('Eliminar raiz'),
                 ),
+                ElevatedButton(
+                  onPressed: () {
+                    controller.eliminarNumero();
+                  },
+                  child: const Text('Eliminar numero'),
+                ),
               ],
             )
           ],
