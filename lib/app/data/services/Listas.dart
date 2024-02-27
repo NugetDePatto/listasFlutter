@@ -47,49 +47,28 @@ class Listas {
     }
   }
 
-  int tamanio() {
-    Nodo? aux = raiz.value;
-    int contador = 0;
-
-    while (aux != null) {
-      contador++;
-      aux = aux.siguiente;
-    }
-
-    return contador;
-  }
-
   void partirVoltear() {
-    try {
-      Nodo? raizMitad = raiz.value;
-      Nodo? auxMitad = raiz.value;
-      Nodo? auxFinal = raiz.value;
+    if (raiz.value != null || raiz.value!.siguiente != null) return;
 
-      int length = tamanio();
+    Nodo? cabeza = raiz.value;
+    Nodo? cola = raiz.value;
+    Nodo? aux = raiz.value;
 
-      int i = length % 2 == 1 ? 0 : -1;
-
-      while (auxFinal!.siguiente != null) {
-        i++;
-        if (i < (length / 2) - 1) auxMitad = auxMitad!.siguiente;
-        if (i < (length / 2)) raiz.value = raiz.value!.siguiente;
-
-        auxFinal = auxFinal.siguiente;
-      }
-
-      if (auxFinal != auxMitad) {
-        auxMitad!.siguiente = null;
-        auxFinal.siguiente = raizMitad;
-
-        if (length % 2 == 1) {
-          Nodo? aux = raiz.value;
-          raiz.value = raiz.value!.siguiente;
-          aux!.siguiente = null;
-          auxMitad.siguiente = aux;
-        }
-      }
-    } catch (e) {
-      print(e);
+    int tamanio = 1;
+    while (cola!.siguiente != null) {
+      cola = cola.siguiente;
+      tamanio++;
     }
+
+    int mitad = (tamanio ~/ 2) + (tamanio % 2);
+
+    for (int i = 1; i < mitad; i++) {
+      aux = aux!.siguiente;
+    }
+
+    raiz.value = aux!.siguiente;
+    aux.siguiente = null;
+
+    cola.siguiente = cabeza;
   }
 }

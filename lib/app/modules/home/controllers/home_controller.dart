@@ -33,7 +33,9 @@ class HomeController extends GetxController {
     numero.clear();
   }
 
-  void partirVoltear() => listas.partirVoltear();
+  void partirVoltear() {
+    listas.partirVoltear();
+  }
 
   void eliminarLista() {
     listas.raiz.value = null;
